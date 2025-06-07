@@ -1,0 +1,43 @@
+# Node.js backend
+backend/node_modules/
+backend/.env
+backend/logs
+backend/*.log
+backend/npm-debug.log*
+
+# React Native frontend
+mobile/node_modules/
+mobile/.env
+mobile/android/.gradle/
+mobile/android/app/build/
+mobile/ios/Pods/
+mobile/ios/build/
+mobile/ios/DerivedData/
+mobile/*.log
+
+# Metro bundler cache
+mobile/.metro-cache/
+mobile/.expo/
+mobile/.vscode/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE settings
+.vscode/
+.idea/
+
+# Misc
+*.swp
+*.swo
+
+# macOS
+__MACOSX/
+
+# Windows
+desktop.ini
+
+# Optional: Environment examples
+!backend/.env.example
+!mobile/.env.example
