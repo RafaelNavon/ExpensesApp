@@ -6,6 +6,15 @@ dotenv.config();
 
 const app = express();
 
+//middleware
+app.use(express.json());
+
+// custom simple middleware
+app.use((req, res, next) => {
+  console.log("Hey we hit req, the method is", req.method);
+  next();
+});
+
 const PORT = process.env.PORT || 5000;
 
 async function initDB() {
@@ -15,7 +24,7 @@ async function initDB() {
             user_id VARCHAR(255) NOT NULL,
             title VARCHAR(255) NOT NULL,
             amount DECIMAL(10,2) NOT NULL,
-            catrgory VARCHAR(255) NOT NULL,
+            category VARCHAR(255) NOT NULL,
             created_at DATE NOT NULL DEFAULT CURRENT_DATE
         )`;
     console.log("Database initialized successfully");
@@ -26,7 +35,27 @@ async function initDB() {
 }
 
 app.get("/", (req, res) => {
-  res.send("it's working!");
+  res.send("it's working");
+});
+
+app.post("/api/transactions", async (req, res) => {
+  try {
+    const { title, amount, category, user_id } = req.body;
+    if (!title || !user_id || !category || amount === undefined) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+
+    const transaction = await sql`
+      INSERT INTO transactions(user_id,title,amount,category)
+      VALUES (${user_id},${title},${amount},${category})
+      RETURNING *
+    `;
+    console.log(transaction);
+    res.status(201).json(transaction[0]);
+  } catch (error) {
+    console.log("Error creating the transaction", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
 });
 
 initDB().then(() => {
