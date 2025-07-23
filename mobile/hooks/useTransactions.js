@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import { Alert } from "react-native";
 
-const API_URL = "http://localhost:5000/api";
+const API_URL = "https://expensesapp-production-0507.up.railway.app/api";
 
 export const useTransactions = (userId) => {
   const [transactions, setTransactions] = useState([]);
@@ -26,6 +26,7 @@ export const useTransactions = (userId) => {
     try {
       const response = await fetch(`${API_URL}/transactions/summary/${userId}`);
       const data = await response.json();
+      console.log("Fetched summary data:", data);
       setSummary(data);
     } catch (error) {
       console.error("Error fetching summary:", error);
@@ -35,10 +36,12 @@ export const useTransactions = (userId) => {
   const loadData = useCallback(async () => {
     if (!userId) return;
 
+    console.log("Current userId:", userId);
+
     setIsLoading(true);
     try {
       // can be run in parallel
-      await Promise.all([fetchTransactions(), fetchSummary]);
+      await Promise.all([fetchTransactions(), fetchSummary()]);
     } catch (error) {
       console.error("Error loading data:", error);
     } finally {
