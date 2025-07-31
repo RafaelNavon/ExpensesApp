@@ -43,7 +43,7 @@
 
 ## 🎥 Demo
 
-<img src="https://github.com/user-attachments/assets/835273e6-deb1-4b91-ace9-6879cecc096e" width="300" />
+<img src="https://github.com/user-attachments/assets/d8374e37-4afe-4ee4-b3fa-1bd89e748b60" width="300" />
 
 *A quick demo showing how to add a new expense.*
 
