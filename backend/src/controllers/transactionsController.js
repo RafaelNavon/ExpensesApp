@@ -87,3 +87,20 @@ export async function getSummaryByUserId(req, res) {
     res.status(500).json({ message: "Internal server error" });
   }
 }
+
+export async function getSummaryOfCategories(req, res) {
+  try {
+    const { userId } = req.params;
+
+    const categoryResults = await sql`
+      SELECT category, ABS(SUM(amount)) AS total
+      FROM transactions
+      WHERE user_id = ${userId} AND amount < 0
+      GROUP BY category
+      `;
+    res.status(200).json(categoryResults);
+  } catch (error) {
+    console.log("Error getting the summary of categories", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+}

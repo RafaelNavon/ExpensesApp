@@ -3,6 +3,7 @@ import {
   createTransaction,
   deleteTransaction,
   getSummaryByUserId,
+  getSummaryOfCategories,
   getTransactionsByUserId,
 } from "../controllers/transactionsController.js";
 
@@ -15,5 +16,7 @@ router.post("/", createTransaction);
 router.delete("/:id", deleteTransaction);
 
 router.get("/summary/:userId", getSummaryByUserId);
+
+router.get("/summary/category/:userId", getSummaryOfCategories);
 
 export default router;

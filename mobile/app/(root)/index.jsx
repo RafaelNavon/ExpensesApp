@@ -18,6 +18,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { BalanceCard } from "../../components/BalanceCard";
 import { TransactionItem } from "../../components/TransactionItem";
 import NoTransactionsFound from "../../components/NoTransactionFound";
+import CategoryPieChart from "../../components/CategoryPieChart";
+
 
 export default function Page() {
   const { user } = useUser();
@@ -90,6 +92,8 @@ export default function Page() {
           <Text style={styles.sectionTitle}>Recent Transactions</Text>
         </View>
       </View>
+
+      <CategoryPieChart userId={user.id} />
 
       <FlatList
         style={styles.transactionsList}
